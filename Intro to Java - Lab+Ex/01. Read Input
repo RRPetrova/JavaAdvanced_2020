@@ -1,0 +1,25 @@
+package Spring;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import static java.lang.String.join;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+      String first = scanner.next();
+      String sec = scanner.next();
+      int f = scanner.nextInt();
+      int s = scanner.nextInt();
+      int t = scanner.nextInt();
+      String last = scanner.next();
+
+
+        System.out.printf("%s %s %s %d", first, sec, last, f+s+t);
+
+    }
+}
