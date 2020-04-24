@@ -1,0 +1,56 @@
+package Spring;
+
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        long blurAmount = Long.parseLong(scanner.nextLine());
+        String[] input = scanner.nextLine().split("\\s+");
+        int rows = Integer.parseInt(input[0]);
+        int col = Integer.parseInt(input[1]);
+        long[][] matrix = new long[rows][col];
+
+        for (int r = 0; r < rows; r++) {
+            String[] numbers = scanner.nextLine().split("\\s+");
+            for (int c = 0; c < col; c++) {
+                matrix[r][c] = Long.parseLong(numbers[c]);
+            }
+        }
+        String[] command = scanner.nextLine().split("\\s+");
+        int blurRow = Integer.parseInt(command[0]);
+        int blurCol = Integer.parseInt(command[1]);
+
+        for (int i = blurRow - 1; i <= blurRow + 1; i++) {
+            if (i < 0 || i >= rows) {
+                continue;
+            }
+            for (int j = blurCol - 1; j <= blurCol + 1; j++) {
+                if (j < 0 || j >= col) {
+                    continue;
+                }
+                matrix[i][j] += blurAmount;
+            }
+        }
+       //for (int i = 0; i < rows; i++) {
+       //    String row = "";
+
+       //    for (int j = 0; j < col; j++) {
+       //        row += matrix[i][j] + " ";
+       //    }
+       //    System.out.println(row.trim());
+       //}
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+    }
+}
