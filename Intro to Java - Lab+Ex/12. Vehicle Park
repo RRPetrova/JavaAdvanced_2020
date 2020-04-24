@@ -1,0 +1,42 @@
+package Spring;
+
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+       String[] input = scanner.nextLine().split(" ");
+       List<String> availableVehicles = new ArrayList<>(Arrays.asList(input));
+
+       String requests = scanner.nextLine();
+       int sales = 0;
+       while (!requests.equals("End of customers!")) {
+           String[] tokens = requests.split(" ");
+           char vehicleType = tokens[0].toLowerCase().charAt(0);
+           int seats = Integer.parseInt(tokens[2]);
+
+         if (availableVehicles.contains(vehicleType + tokens[2])) {
+             int index = availableVehicles.indexOf(vehicleType + tokens[2]);
+            int price = (int)vehicleType * seats;
+             System.out.printf("Yes, sold for %d$%n", price);
+           availableVehicles.remove(index);
+             sales++;
+         } else {
+             System.out.println("No");
+         }
+
+           requests = scanner.nextLine();
+       }
+
+        System.out.printf("Vehicles left: ");
+        System.out.println(String.join(", ", availableVehicles));
+        System.out.printf("Vehicles sold: %d", sales);
+
+
+
+    }
+}
