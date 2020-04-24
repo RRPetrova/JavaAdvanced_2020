@@ -1,0 +1,48 @@
+package Spring;
+
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int players = Integer.parseInt(scanner.nextLine());
+
+        int winnersPoints = -100001;
+        String winnersName = "";
+        boolean equals = true;
+        for (int i = 0; i < players; i++) {
+
+            String name = scanner.nextLine();
+            int startingPoints = Integer.parseInt(scanner.nextLine());
+
+            int currPoints = 0;
+            for (int j = 0; j < name.length(); j++) {
+                int currCode = (int) name.charAt(j);
+                if (currCode % 2 == 0) {
+                    currPoints += currCode;
+                } else if (currCode % 2 != 0){
+                    currPoints -= currCode;
+                }
+            }
+            if (currPoints + startingPoints > winnersPoints) {
+                winnersName = name;
+                winnersPoints = currPoints + startingPoints;
+                equals = false;
+            }
+            if ((currPoints + startingPoints) == winnersPoints && equals == true) {
+               equals = false;
+                winnersName = name;
+                winnersPoints = currPoints + startingPoints;
+
+            }
+
+        }
+
+            System.out.printf("The winner is %s - %d points", winnersName, winnersPoints);
+
+    }
+}
