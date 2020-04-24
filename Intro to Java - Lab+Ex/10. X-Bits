@@ -1,0 +1,64 @@
+package Spring;
+
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int num1 = Integer.parseInt(scanner.nextLine());
+        int num2 = Integer.parseInt(scanner.nextLine());
+        int num3 = Integer.parseInt(scanner.nextLine());
+        int num4 = Integer.parseInt(scanner.nextLine());
+        int num5 = Integer.parseInt(scanner.nextLine());
+        int num6 = Integer.parseInt(scanner.nextLine());
+        int num7 = Integer.parseInt(scanner.nextLine());
+        int num8 = Integer.parseInt(scanner.nextLine());
+
+
+
+        String num1Bit = String.format("%32s", Integer.toBinaryString(num1)).replace(' ', '0');
+        String num2Bit = String.format("%32s", Integer.toBinaryString(num2)).replace(' ', '0');
+        String num3Bit = String.format("%32s", Integer.toBinaryString(num3)).replace(' ', '0');
+        String num4Bit = String.format("%32s", Integer.toBinaryString(num4)).replace(' ', '0');
+        String num5Bit = String.format("%32s", Integer.toBinaryString(num5)).replace(' ', '0');
+        String num6Bit = String.format("%32s", Integer.toBinaryString(num6)).replace(' ', '0');
+        String num7Bit = String.format("%32s", Integer.toBinaryString(num7)).replace(' ', '0');
+        String num8Bit = String.format("%32s", Integer.toBinaryString(num8)).replace(' ', '0');
+
+
+
+        int countMatches = findMatchesX(num1Bit, num2Bit, num3Bit) +
+        findMatchesX(num2Bit, num3Bit, num4Bit)+
+       findMatchesX(num3Bit, num4Bit, num5Bit)+
+       findMatchesX(num4Bit, num5Bit, num6Bit)+
+       findMatchesX(num5Bit, num6Bit, num7Bit)+
+       findMatchesX(num6Bit, num7Bit, num8Bit);
+
+        System.out.println(countMatches);
+
+    }
+
+    private static int findMatchesX(String num1Bit, String num2Bit, String num3Bit) {
+        int countMatches = 0;
+        for (int i = 0; i <= num1Bit.length()-3; i++) {
+
+            if (num1Bit.charAt(i) == '1' && num1Bit.charAt(i + 1) == '0' && num1Bit.charAt(i + 2) == '1') {
+
+                if (num2Bit.contains("010") &&
+                        num2Bit.substring(i, i + 3).equals("010")) {
+                    if (num3Bit.contains("101") &&
+                            num3Bit.substring(i, i + 3).equals("101")) {
+                        countMatches+=1;
+
+                    }
+                }
+            }
+
+        }
+        return countMatches;
+    }
+}
