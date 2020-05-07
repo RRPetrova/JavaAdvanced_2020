@@ -1,0 +1,69 @@
+package Streams;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        String stringPath = "D:\\Softuni" +
+                "\\04. Java-Advanced-Files-and-Streams-Exercises-Resources" +
+                "\\input.txt";
+
+        String stringOut = "D:\\Softuni" +
+                "\\04. Java-Advanced-Files-and-Streams-Exercises-Resources" +
+                "\\output.txt";
+
+
+        try (BufferedReader bf = new BufferedReader(new FileReader(stringPath));
+             PrintWriter writer = new PrintWriter(new FileWriter(stringOut))) {
+
+            long vowelsCount = 0;
+            long consonantsCount = 0;
+            long punctCount = 0;
+
+            List<Character> vowelsSymbols = new ArrayList<>();
+            Character[] arrayVowels = {'a', 'e', 'o', 'u', 'e', 'i'};
+
+            vowelsSymbols.addAll(Arrays.asList(arrayVowels));
+
+            List<Character> punctSymbols = new ArrayList<>();
+            Character[] punctArray = {'!', ',', '.', '?'};
+
+            punctSymbols.addAll(Arrays.asList(punctArray));
+
+            String line = bf.readLine();
+
+            while (line != null) {
+
+                for (int i = 0; i < line.length(); i++) {
+                    if (vowelsSymbols.contains(line.charAt(i))) {
+                        vowelsCount++;
+                    } else if (punctSymbols.contains(line.charAt(i))) {
+                        punctCount++;
+                    } else if (line.charAt(i) != ' ') {
+                        consonantsCount++;
+                    }
+                }
+
+                line = bf.readLine();
+            }
+
+            writer.printf("Vowels: %d%n", vowelsCount);
+            writer.printf("Consonants: %d%n", consonantsCount);
+            writer.printf("Punctuation: %d", punctCount);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+}
