@@ -1,0 +1,48 @@
+package Streams;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        String stringPath = "D:\\Softuni" +
+                "\\04. Java-Advanced-Files-and-Streams-Exercises-Resources" +
+                "\\input.txt";
+
+     // String stringOut = "D:\\Softuni" +
+     //         "\\04. Java-Advanced-Files-and-Streams-Exercises-Resources" +
+     //         "\\output.txt";
+
+
+        try (BufferedReader bf = new BufferedReader(new FileReader(stringPath))){
+
+
+
+            String line = bf.readLine();
+
+            while (line != null) {
+                long sum = 0;
+                for (int i = 0; i < line.length(); i++) {
+                    sum += line.charAt(i);
+                }
+                System.out.println(sum);
+             line = bf.readLine();
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+}
