@@ -1,0 +1,73 @@
+package Streams;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        String pathIn1 = "D:\\Softuni" +
+                "\\04. Java-Advanced-Files-and-Streams-Exercises-Resources" +
+                "\\words.txt";
+
+        String pathIn2 = "D:\\Softuni" +
+                "\\04. Java-Advanced-Files-and-Streams-Exercises-Resources" +
+                "\\text.txt";
+
+        String pathOut = "D:\\Softuni" +
+                "\\04. Java-Advanced-Files-and-Streams-Exercises-Resources" +
+                "\\results.txt";
+
+
+        Map<String, Integer> countRepetitions = new HashMap<>();
+        HashSet<String> wordsSet = new HashSet<>()
+
+        try (BufferedReader bf1 = new BufferedReader(new FileReader(pathIn1));
+             BufferedReader bf2 = new BufferedReader(new FileReader(pathIn2));
+             PrintWriter writer = new PrintWriter(new FileWriter(pathOut))) {
+
+            String line = bf1.readLine();
+
+            while (line != null) {
+                String[] wordsArray = line.split("\\s+");
+                for (String currWord : wordsArray) {
+                    if (!countRepetitions.containsKey(currWord)) {
+                        countRepetitions.put(currWord, 0);
+                        wordsSet.add(currWord);
+                    }
+                }
+                line = bf1.readLine();
+            }
+
+            line = bf2.readLine();
+            while (line != null) {
+
+                String[] textArray = line.split("\\s+");
+                for (String textWords : textArray) {
+
+                    for (String searchWord : wordsSet) {
+                        if (textWords.equals(searchWord)) {
+                            countRepetitions.put(searchWord, countRepetitions.get(searchWord) + 1);
+                        }
+                    }
+                    line = bf2.readLine();
+                }
+            }
+                countRepetitions.entrySet().stream()
+                        .sorted((f,s) -> s.getValue().compareTo(f.getValue()))
+                        .forEach(e ->
+                                writer.printf("%s - %d%n", e.getKey(), e.getValue()));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+}
