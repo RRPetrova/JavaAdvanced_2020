@@ -1,0 +1,45 @@
+package Streams;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        //  String projectPath = "D:\\Softuni\\04. Java-Advanced-Files-and-Streams-Exercises-Resources";
+        //  String pathFirstIn = projectPath + "\\inputOne.txt";
+        //  String pathSecIn = projectPath + "\\inputTwo.txt";
+        //  String pathOut = projectPath + "\\results.txt";
+
+        File file = new File("D:\\Softuni\\04. Java-Advanced-Files-and-Streams-Exercises-Resources\\Exercises Resources");
+
+        if (file.exists()) {
+            System.out.printf("Folder size: %d", getLength(file));
+        }
+
+        }
+
+    private static long getLength(File file) {
+
+        long length = 0;
+        File[] files = file.listFiles();
+
+        for (File currFile : files) {
+            if (currFile.isFile()) {
+            length += currFile.length();
+            } else {
+                length += getLength(currFile);
+            }
+        }
+        return length;
+    }
+}
+
+
+
